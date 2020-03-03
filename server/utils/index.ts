@@ -1,9 +1,9 @@
 import { Phone } from '../models/Phone'
 
-const getNumbers = (phoneNumbers) => phoneNumbers.map(pn => pn.phoneNumber);
+const getNumbers = (phoneNumbers): string[] => phoneNumbers.map(pn => pn.phoneNumber);
 
-const prepareResponse = (user) => {
-  return Object.assign({}, user.dataValues, { phones: getNumbers(user.phones) });
+const prepareResponse = (person) => {
+  return Object.assign({}, person.dataValues, { phones: getNumbers(person.phones) });
 };
 
 const filterNumbers = (a: string[], b: string[]): string[] => a.filter((pn) => !b.includes(pn));

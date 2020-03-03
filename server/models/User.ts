@@ -1,5 +1,17 @@
-import { Model, Column, Table, HasMany, CreatedAt, UpdatedAt } from "sequelize-typescript";
-import { Phone } from './Phone';
+import bcrypt from 'bcrypt';
+import {
+  Model,
+  Column,
+  Table,
+  CreatedAt,
+  UpdatedAt,
+  Index,
+  Unique,
+  Length,
+  IsEmail,
+  BeforeCreate,
+  BeforeUpdate
+} from "sequelize-typescript";
 
 @Table
 export class User extends Model<User> {
@@ -9,8 +21,21 @@ export class User extends Model<User> {
   @Column
   lastName!: string;
 
-  @HasMany(() => Phone)
-  phones?: Phone[];
+  @IsEmail
+  @Unique
+  @Index
+  @Column
+  email!: string;
+
+  @Length({ min: 6 })
+  @Column
+  password!: string;
+
+  @BeforeCreate
+  @BeforeUpdate
+  static async bcryptPassword(instance: User) {
+    instance.password = await bcrypt.hash(instance.password, 8);
+  }
 
   @CreatedAt
   @Column

@@ -1,15 +1,25 @@
 import express from 'express'
+import passport from 'passport';
 import bodyParser from 'body-parser';
 import { Nuxt, Builder } from 'nuxt'
-import { users } from './routes/users'
+
+import initStrategies from './config/passport'
+import { persons } from './routes/persons'
+import { auth } from './routes/auth'
 
 export default class Server {
   public run(): void {
+    require('dotenv').config();
+
     this._app.use(bodyParser.json())
     this._app.use(bodyParser.urlencoded({ extended: true }))
 
+    this._app.use(passport.initialize());
+    initStrategies(passport);
+
     // Import routes
-    this._app.use('/api/users', users);
+    this._app.use('/api/persons', passport.authenticate('jwt', {session: false}), persons);
+    this._app.use('/api/auth', auth);
 
     let config = require('./../nuxt.config.js');
     config.dev = !(process.env.NODE_ENV === 'production');
