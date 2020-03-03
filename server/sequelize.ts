@@ -1,10 +1,11 @@
 import { Sequelize } from 'sequelize-typescript';
-import { User } from './models/User';
+import { Person } from './models/Person';
 import { Phone } from './models/Phone';
+import { User } from './models/User';
 
 export const sequelize = new Sequelize({
   dialect: 'sqlite',
   database: 'phonebook',
   storage: ':memory:',
-  models: [User, Phone]
+  models: [User, Person, Phone]
 });

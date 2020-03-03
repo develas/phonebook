@@ -1,17 +1,17 @@
 import { Model, Column, Table, ForeignKey, BelongsTo, CreatedAt, UpdatedAt } from "sequelize-typescript";
-import { User } from './User';
+import { Person } from './Person';
 
 @Table
 export class Phone extends Model<Phone> {
   @Column
   phoneNumber!: string;
 
-  @ForeignKey(() => User)
+  @ForeignKey(() => Person)
   @Column
-  userId!: number;
+  personId!: number;
 
-  @BelongsTo(() => User)
-  user!: User;
+  @BelongsTo(() => Person)
+  person!: Person;
 
   @CreatedAt
   @Column

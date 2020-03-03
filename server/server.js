@@ -4,18 +4,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const passport_1 = __importDefault(require("passport"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const nuxt_1 = require("nuxt");
-const users_1 = require("./routes/users");
+const passport_2 = __importDefault(require("./config/passport"));
+const persons_1 = require("./routes/persons");
+const auth_1 = require("./routes/auth");
 class Server {
     constructor() {
         this._app = express_1.default();
         this._port = process.env.PORT || 3000;
     }
     run() {
+        require('dotenv').config();
         this._app.use(body_parser_1.default.json());
         this._app.use(body_parser_1.default.urlencoded({ extended: true }));
-        this._app.use('/api/users', users_1.users);
+        this._app.use(passport_1.default.initialize());
+        passport_2.default(passport_1.default);
+        this._app.use('/api/persons', passport_1.default.authenticate('jwt', { session: false }), persons_1.persons);
+        this._app.use('/api/auth', auth_1.auth);
         let config = require('./../nuxt.config.js');
         config.dev = !(process.env.NODE_ENV === 'production');
         const nuxt = new nuxt_1.Nuxt(config);

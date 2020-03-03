@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const getNumbers = (phoneNumbers) => phoneNumbers.map(pn => pn.phoneNumber);
 exports.getNumbers = getNumbers;
-const prepareResponse = (user) => {
-    return Object.assign({}, user.dataValues, { phones: getNumbers(user.phones) });
+const prepareResponse = (person) => {
+    return Object.assign({}, person.dataValues, { phones: getNumbers(person.phones) });
 };
 exports.prepareResponse = prepareResponse;
 const filterNumbers = (a, b) => a.filter((pn) => !b.includes(pn));

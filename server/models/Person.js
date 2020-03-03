@@ -10,33 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
-const Person_1 = require("./Person");
-let Phone = class Phone extends sequelize_typescript_1.Model {
+const Phone_1 = require("./Phone");
+let Person = class Person extends sequelize_typescript_1.Model {
 };
 __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", String)
-], Phone.prototype, "phoneNumber", void 0);
+], Person.prototype, "firstName", void 0);
 __decorate([
-    sequelize_typescript_1.ForeignKey(() => Person_1.Person),
     sequelize_typescript_1.Column,
-    __metadata("design:type", Number)
-], Phone.prototype, "personId", void 0);
+    __metadata("design:type", String)
+], Person.prototype, "lastName", void 0);
 __decorate([
-    sequelize_typescript_1.BelongsTo(() => Person_1.Person),
-    __metadata("design:type", Person_1.Person)
-], Phone.prototype, "person", void 0);
+    sequelize_typescript_1.HasMany(() => Phone_1.Phone),
+    __metadata("design:type", Array)
+], Person.prototype, "phones", void 0);
 __decorate([
     sequelize_typescript_1.CreatedAt,
     sequelize_typescript_1.Column,
     __metadata("design:type", Date)
-], Phone.prototype, "createdAt", void 0);
+], Person.prototype, "createdAt", void 0);
 __decorate([
     sequelize_typescript_1.UpdatedAt,
     sequelize_typescript_1.Column,
     __metadata("design:type", Date)
-], Phone.prototype, "updatedAt", void 0);
-Phone = __decorate([
+], Person.prototype, "updatedAt", void 0);
+Person = __decorate([
     sequelize_typescript_1.Table
-], Phone);
-exports.Phone = Phone;
+], Person);
+exports.Person = Person;
