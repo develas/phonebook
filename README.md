@@ -1,6 +1,6 @@
 # phonebook
 
-> My superior Nuxt.js project
+> Nuxt.js project
 
 ## Build Setup
 
